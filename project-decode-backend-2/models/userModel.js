@@ -1,11 +1,6 @@
 // Create a User model for an e-commerce platform with essential fields
 // including name, email, password, phone, address, and role.
 
-// This is the problem statement.
-// WE have to create the user model which has fields such as name, email, password, phone, address, and role.
-
-// Let's create this....
-
 const mongoose = require('mongoose')
 const userSchema =  new mongoose.Schema({
   name:{

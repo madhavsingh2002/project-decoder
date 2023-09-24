@@ -1,36 +1,40 @@
-const mongoose = require('mongoose')
-const productSchema = new mongoose.Schema(
-    {
-      name: {
-        type: String,
-        required: true,
-      },
-      description: {
-        type: String,
-        required: true,
-      },
-      price: {
-        type: Number,
-        required: true,
-      },
-      category: {
-        type: mongoose.ObjectId,
-        ref: "Category",
-        required: true,
-      },
-      quantity: {
-        type: Number,
-        required: true,
-      },
-      photo: {
-        data: Buffer,
-        contentType: String,
-      },
-      shipping: {
-        type: Boolean,
-      },
+
+// Create a Product model for an e-commerce platform with essential fields
+// including name, description, price, phone, category, quantity,photo and shipping.
+
+const mongoose =  require('mongoose')
+const productSchema =  new mongoose.Schema({
+    name:{
+        type:String,
+        required:true,
     },
-    { timestamps: true }
-  );
-  const productModel = mongoose.model('Product',productSchema)
-  module.exports = productModel;
+    decription:{
+        type:String,
+        required:true,
+    },
+    price:{
+        type:Number,
+        required:true,
+    },
+    category:{
+        type:String,
+        required:true,
+    },
+    quantity:{
+        type:String,
+        required:true,
+    },
+    photo:{
+        data:Buffer,
+        contentType:String,
+    },
+    shipping:{
+        type: Boolean
+    }
+    
+},
+{timestamps:true}
+)
+// import this.
+const ProductModel =  mongoose.model('Products',productSchema)
+module.exports= ProductModel; 
