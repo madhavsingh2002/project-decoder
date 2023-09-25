@@ -4,16 +4,19 @@ const app =express()
 connectToMongodb();
 const bcrypt = require('bcryptjs');
 const UserModel = require('./models/userModel.js');
-
+const jwt = require('jsonwebtoken')
+const dotenv =require('dotenv')
 app.use(express.json());
-
+//configure env
+dotenv.config();
 // test-endpoints
 app.get('/',(req,res)=>{
     res.send('hello world')
 })
 
+
 // Define the JWT secret
-const JWT_SECRET = lkajsdfljsadfljsdfljsf;
+const JWT_SECRET = process.env.JWT_SECRET;
 
 /*  User-EndPoints */
 
@@ -74,7 +77,7 @@ app.post("/login", async (req, res) => {
     }
 
     // Check if the user exists
-    const user = await userModel.findOne({ email });
+    const user = await UserModel.findOne({ email });
 
     if (!user) {
       return res.status(404).json({
@@ -84,7 +87,7 @@ app.post("/login", async (req, res) => {
     }
 
     // Compare passwords
-    const match = await comparePassword(password, user.password);
+    const match = await bcrypt.compare(password, user.password);
 
     if (!match) {
       return res.status(400).json({
