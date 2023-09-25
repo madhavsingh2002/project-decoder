@@ -3,6 +3,8 @@ const connectToMongodb = require('./config/db.js');
 const app =express()
 connectToMongodb();
 const bcrypt = require('bcryptjs');
+const UserModel = require('./models/userModel.js');
+app.use(express.json());
 
 // test-endpoints
 app.get('/',(req,res)=>{
@@ -14,15 +16,15 @@ app.get('/',(req,res)=>{
 // Define the registerController as a route handler
 app.post("/register", async (req, res) => {
     try {
-      const { name, email, password, phone, address, answer } = req.body;
+      const { name, email, password, phone, address } = req.body;
       
       // Validations (You can use a function for this if needed)
-      if (!name || !email || !password || !phone || !address || !answer) {
+      if (!name || !email || !password || !phone || !address ) {
         return res.status(400).json({ message: "All fields are required" });
       }
       
       // Check if the user already exists
-      const existingUser = await userModel.findOne({ email });
+      const existingUser = await UserModel.findOne({ email });
   
       if (existingUser) {
         return res.status(200).json({
@@ -36,13 +38,13 @@ app.post("/register", async (req, res) => {
       const hashedPassword = await bcrypt.hash(password, saltRounds);
   
       // Register the user
-      const user = await new userModel({
+      const user = await new UserModel({
         name,
         email,
         phone,
         address,
         password: hashedPassword,
-        answer,
+        
       }).save();
   
       res.status(201).json({
@@ -59,13 +61,6 @@ app.post("/register", async (req, res) => {
       });
     }
   });
-
-
-
-
-
-
-
 
 
 
