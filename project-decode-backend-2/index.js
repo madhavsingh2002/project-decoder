@@ -14,7 +14,7 @@ app.get('/',(req,res)=>{
     res.send('hello world')
 })
 
-//
+//this is the simple file
 // Define the JWT secret
 const JWT_SECRET = process.env.JWT_SECRET;
 
